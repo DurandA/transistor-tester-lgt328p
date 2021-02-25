@@ -1056,7 +1056,7 @@
   #ifndef __LGT8FX8P__
     #include "config_328.h"
   #else
-    #error <<< LGT8FX8P is not yet supported >>>
+    #include "config_lgt8f328p.h"
   #endif
 
 

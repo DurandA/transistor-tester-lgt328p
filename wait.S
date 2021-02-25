@@ -366,6 +366,94 @@ wait500ns:
 #endif
 
 
+#if CPU_FREQ == 24000000
+;24MHz: clock cycle 41.67ns	x = ?
+
+.global wait5us		;wait 5탎
+.global wait4us		;wait 4탎
+.global wait3us		;wait 3탎
+.global wait2us		;wait 2탎
+.global wait1us		;wait 1탎
+
+;wait10us
+ rcall wait5us		;5탎
+;proceed with wait5us	;+5탎
+
+wait5us:
+ rcall wait1us		;1탎
+;proceed with wait4us	;+4탎
+
+wait4us:
+ rcall wait1us		;1탎
+;proceed with wait3us	;+3탎
+
+wait3us:
+ rcall wait1us		;1탎
+;proceed with wait2us	;+2탎
+
+wait2us:
+ rcall wait1us		;1탎
+;proceed with wait1us	;+1탎
+
+wait1us:
+ rcall wait500ns	;500ns
+;proceed with wait500ms	;+500ns
+
+wait500ns:
+ nop
+ nop
+ nop
+ nop
+ nop			;500ns
+#endif
+
+
+#if CPU_FREQ == 32000000
+;32MHz: clock cycle 31.25ns	x = ?
+
+.global wait5us		;wait 5탎
+.global wait4us		;wait 4탎
+.global wait3us		;wait 3탎
+.global wait2us		;wait 2탎
+.global wait1us		;wait 1탎
+
+;wait10us
+ rcall wait5us		;5탎
+;proceed with wait5us	;+5탎
+
+wait5us:
+ rcall wait1us		;1탎
+;proceed with wait4us	;+4탎
+
+wait4us:
+ rcall wait1us		;1탎
+;proceed with wait3us	;+3탎
+
+wait3us:
+ rcall wait1us		;1탎
+;proceed with wait2us	;+2탎
+
+wait2us:
+ rcall wait1us		;1탎
+;proceed with wait1us	;+1탎
+
+wait1us:
+ rcall wait500ns	;500ns
+;proceed with wait500ms	;+500ns
+
+wait500ns:
+ nop
+ nop
+ nop
+ nop
+ nop
+ nop
+ nop
+ nop
+ nop			;500ns
+#endif
+
+
  ret
 
 

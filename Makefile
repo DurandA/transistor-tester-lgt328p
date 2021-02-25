@@ -22,7 +22,13 @@ PROJECT = ComponentTester
 # - ATmega 1280            : atmega1280
 # - ATmega 1284/1284P      : atmega1284
 # - ATmega 2560            : atmega2560
-MCU = atmega328
+# - LGT8F328P              : lgt8f328p
+TARGET = lgt8f328p
+ifeq (${TARGET},lgt8f328p)
+  MCU = atmega328
+else
+  MCU = ${TARGET}
+endif
 
 # MCU freqency:
 # - 1MHz  : 1
@@ -134,6 +140,9 @@ CFLAGS += -gdwarf-2 -std=gnu99 -Os -mcall-prologues
 CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 #CFLAGS += -flto
 CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d
+ifeq (${TARGET},lgt8f328p)
+  CFLAGS += -D__LGT8FX8P__
+endif
 
 # linker flags
 LDFLAGS = -mmcu=${MCU} -Wl,-Map=${NAME}.map
@@ -293,6 +302,11 @@ ifeq (${MCU},atmega2560)
   FAMILY = atmega328_324_640
 endif
 
+# LGT8F328P
+ifeq (${MCU},lgt8f328p)
+  FAMILY = lgt8f328p
+endif
+
 # ATmega 328/324/640/644/1280/1284/2560
 ifeq (${FAMILY},atmega328_324_640)
   # high byte: use default settings, disable JTAG
@@ -357,6 +371,11 @@ ifeq (${FAMILY},atmega328pb)
     # external 16MHz low power crystal and /1 clock divider
     LFUSE_LOWPOWER = -U lfuse:w:0xff:m
   endif
+endif
+
+# LGT8F328P
+ifeq (${FAMILY},lgt8f328p)
+  # TODO: set fuses
 endif
 
 # select low fuse byte

@@ -1053,7 +1053,11 @@
  */
 
 #if defined(__AVR_ATmega328__)
-  #include "config_328.h"
+  #ifndef __LGT8FX8P__
+    #include "config_328.h"
+  #else
+    #error <<< LGT8FX8P is not yet supported >>>
+  #endif
 
 
 /*

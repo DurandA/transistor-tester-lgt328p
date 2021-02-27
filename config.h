@@ -1166,7 +1166,15 @@
   /* all other MCU clocks */
   #define ADC_FREQ    125000
 #endif
-
+#ifdef __LGT8FX8P__
+  #if CPU_FREQ == 20000000
+    /* 20MHz MCU clock */
+    #define ADC_FREQ    312500
+  #else
+    /* all other MCU clocks */
+    #define ADC_FREQ    500000
+  #endif
+#endif
 
 /*
  *  define clock divider

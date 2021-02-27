@@ -26,6 +26,17 @@
 #include "config.h"           /* global configuration */
 
 
+/*
+ *  rcall+ret take 4 clock cycles less on LGT8FX8P
+ *  this macro adds 4 nops to compensate
+ */
+#ifdef __LGT8FX8P__
+#define LGT8FX8P_EXTRA_NOPS nop$nop$nop$nop
+#else
+#define LGT8FX8P_EXTRA_NOPS
+#endif
+
+
 
 .func wait1000ms
 .global wait5s		; wait 5 seconds
@@ -197,6 +208,8 @@ wait20us:
  *  10µs and below based on MCU clock rate
  *  - rcall needs 3 clock cycles
  *  - ret needs 4 clock cycles
+ *  rcall and ret need 1 and 2 clock cycles resp. on LGT8FX8P
+ *  use LGT8FX8P_EXTRA_NOPS to compensate
  */
 
 wait10us:		;	1+x return addresses
@@ -284,6 +297,7 @@ wait2us:
 ;proceed with wait1us	;+1µs
 
 wait1us:
+ LGT8FX8P_EXTRA_NOPS
  nop			;1µs
 #endif
 
@@ -322,6 +336,7 @@ wait1us:
 ;proceed with wait500ms	;+500ns
 
 wait500ns:
+ LGT8FX8P_EXTRA_NOPS
  nop			;500ns
 #endif
 
@@ -360,6 +375,7 @@ wait1us:
 ;proceed with wait500ns	;+500ns
 
 wait500ns:
+ LGT8FX8P_EXTRA_NOPS
  nop
  nop
  nop                    ;500ns
@@ -400,6 +416,7 @@ wait1us:
 ;proceed with wait500ms	;+500ns
 
 wait500ns:
+ LGT8FX8P_EXTRA_NOPS
  nop
  nop
  nop
@@ -442,6 +459,7 @@ wait1us:
 ;proceed with wait500ms	;+500ns
 
 wait500ns:
+ LGT8FX8P_EXTRA_NOPS
  nop
  nop
  nop
